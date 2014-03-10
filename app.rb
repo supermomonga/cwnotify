@@ -14,6 +14,7 @@ class App < Sinatra::Base
 
   post '/github/:room_id' do
     payload = params[:payload] ? JSON.parse(params[:payload]) : nil
+    p params
     if payload
       ChatWork::Message.create(room_id: params[:room_id], body: payload.to_s)
     end
