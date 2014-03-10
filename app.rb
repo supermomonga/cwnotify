@@ -15,6 +15,7 @@ class App < Sinatra::Base
   post '/github/:room_id' do
     payload = params[:payload] ? JSON.parse(params[:payload]) : nil
     event_type = request['X-GitHub-Event']
+    puts "event type: #{event_type}"
     return unless payload && event_type
 
     message = case event_type.to_sym
@@ -27,6 +28,7 @@ class App < Sinatra::Base
       nil
     end
 
+    puts "message: #{message}"
     ChatWork::Message.create room_id: params[:room_id], body: message if message
   end
 
