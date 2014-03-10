@@ -23,7 +23,7 @@ class App < Sinatra::Base
       payload['commits'].map{|c|
         meta = "[#{c['timestamp']}] #{c['committer']['name']} : #{c['message']}"
         url = c['url']
-        "#{meta}\n#{url}"
+        "[info]\n#{meta}\n#{url}\n[/info]"
       }.join "\n"
     else
       nil
@@ -31,7 +31,7 @@ class App < Sinatra::Base
 
     puts "message: #{message}"
     if message
-      body = "[CHATWORK NOTIFIER] ヾ(〃l _ l)ﾉﾞ`)\n#{message}"
+      body = "[CHATWORK NOTIFIER] ヾ(〃l _ l)ﾉﾞ\n#{message}"
       ChatWork::Message.create room_id: params[:room_id], body: body
     end
   end
