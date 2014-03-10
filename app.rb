@@ -20,18 +20,20 @@ class App < Sinatra::Base
 
     message = case event_type.to_sym
     when :push
-      commits = payload['commits'].map{|c|
-        meta = "[#{c['timestamp']}] #{c['message']} - #{c['committer']['name']}"
+      payload['commits'].map{|c|
+        meta = "[#{c['timestamp']}] #{c['committer']['name']} : #{c['message']}"
         url = c['url']
         "#{meta}\n#{url}"
       }.join "\n"
-      "#{payload['repository']['url']}\n#{payload['commits'].size} commits pushed.\n\n#{commits}"
     else
       nil
     end
 
     puts "message: #{message}"
-    ChatWork::Message.create room_id: params[:room_id], body: message if message
+    if message
+      body = "[CHATWORK NOTIFIER] ヾ(〃l _ l)ﾉﾞ`)\n#{message}"
+      ChatWork::Message.create room_id: params[:room_id], body: body
+    end
   end
 
 end
