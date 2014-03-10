@@ -23,7 +23,7 @@ class App < Sinatra::Base
       payload['commits'].map{|c|
         meta = "[#{c['timestamp']}] #{c['committer']['name']} : #{c['message']}"
         url = c['url']
-        "[info]\n#{meta}\n#{url}\n[/info]"
+        "[info]#{meta}\n#{url}[/info]"
       }.join "\n"
     else
       nil
