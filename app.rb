@@ -20,10 +20,10 @@ class App < Sinatra::Base
 
     message = case event_type.to_sym
     when :push
-      commits = payload[:commits].map{|c|
-        "#{c[:message]}\n  ->#{c[:url]}\n"
+      commits = payload['commits'].map{|c|
+        "#{c['message']}\n  ->#{c['url']}\n"
       }.join "\n"
-      "#{payload[:repository][:url]}\n#{payload[:commits].size} commits pushed.\n\n#{commits}"
+      "#{payload['repository']['url']}\n#{payload['commits'].size} commits pushed.\n\n#{commits}"
     else
       nil
     end
