@@ -14,6 +14,7 @@ class App < Sinatra::Base
 
   post '/github/:room_id' do
     payload = params[:payload] ? JSON.parse(params[:payload]) : nil
+    p request.env
     event_type = request.env['X-GitHub-Event']
     puts "event type: #{event_type}"
     return unless payload && event_type
