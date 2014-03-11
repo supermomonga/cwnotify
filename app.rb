@@ -24,7 +24,7 @@ class App < Sinatra::Base
         meta = "[#{c['timestamp']}] #{c['committer']['name']}"
         url = c['url']
         title = "[title]#{meta}[/title]"
-        "[info]#{meta}\n#{c['message']}\n#{url}[/info]"
+        "[info]#{title}\n#{c['message']}\n#{url}[/info]"
       }.join "\n"
     else
       nil
