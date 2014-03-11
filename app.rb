@@ -21,9 +21,10 @@ class App < Sinatra::Base
     message = case event_type.to_sym
     when :push
       payload['commits'].map{|c|
-        meta = "[#{c['timestamp']}] #{c['committer']['name']} : #{c['message']}"
+        meta = "[#{c['timestamp']}] #{c['committer']['name']}"
         url = c['url']
-        "[info]#{meta}\n#{url}[/info]"
+        title = "[title]#{meta}[/title]"
+        "[info]#{meta}\n#{message}\n#{url}[/info]"
       }.join "\n"
     else
       nil
