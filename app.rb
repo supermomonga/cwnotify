@@ -6,6 +6,18 @@ require 'json'
 
 ChatWork.api_key = ENV['CHATWORK_API_TOKEN'] || ''
 
+class ChatWork
+
+  def self.tag_title title = nil
+    title ? "[title]#{title}[/title]" : ''
+  end
+
+  def self.tag_info message, title = nil
+    "[info]#{self.tag_title title}#{message}[/info]"
+  end
+
+end
+
 class App < Sinatra::Base
 
   get '/' do
@@ -21,10 +33,9 @@ class App < Sinatra::Base
     message = case event_type.to_sym
     when :push
       payload['commits'].map{|c|
-        meta = "[#{c['timestamp']}] #{c['committer']['name']} pushed."
-        url = c['url']
-        title = "[title]#{meta}[/title]"
-        "[info]#{title}#{c['message']}\n#{url}[/info]"
+        title = "[#{c['timestamp']}] #{c['committer']['name']} pushed."
+        message = "#{c['message']}\n#{c['url']}"
+        ChatWork.tag_info message, title
       }.join "\n"
     else
       nil
