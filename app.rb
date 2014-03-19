@@ -48,4 +48,14 @@ class App < Sinatra::Base
     end
   end
 
+  post '/backuprb/:room_id' do
+    status = params[:status]
+    notify = params[:message]
+    message = CWHelper.tag_info notify, "Backup:#{status}"
+    if message
+      body = "[CHATWORK NOTIFIER] ヾ(〃l _ l)ﾉﾞ\n#{message}"
+      ChatWork::Message.create room_id: params[:room_id], body: body
+    end
+  end
+
 end
