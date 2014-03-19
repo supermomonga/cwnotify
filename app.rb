@@ -16,6 +16,28 @@ class CWHelper
     "[info]#{self.tag_title title}#{message}[/info]"
   end
 
+  def self.tag_icon icon = :smile
+    maps = {
+      smile: ':)',
+      sad: ':(',
+      laugh: ':D',
+      cool: '8-)',
+      wow: ':o',
+      wink: ';)',
+      cry: ';(',
+      oh: ':|',
+      kiss: ';*',
+      heart: 'h',
+      flower: 'F',
+      cracker: 'cracker',
+      cake: '^',
+      coffee: 'coffee',
+      beer: 'beer',
+      sweat: '(^^;)'
+    }
+    maps[icon] || icon
+  end
+
 end
 
 class App < Sinatra::Base
@@ -50,7 +72,12 @@ class App < Sinatra::Base
 
   post '/backuprb/:room_id' do
     status = params[:status]
-    notify = params[:message]
+    icon = case status.to_sym
+           when :success then :cracker
+           when :warning then :sweat
+           else :cry
+           end
+    notify = "#{CWHelper.tag_icon icon}#{params[:message]}"
     message = CWHelper.tag_info notify, "Backup:#{status}"
     if message
       body = "[CHATWORK NOTIFIER] ヾ(〃l _ l)ﾉﾞ\n#{message}"
