@@ -6,7 +6,7 @@ require 'json'
 
 ChatWork.api_key = ENV['CHATWORK_API_TOKEN'] || ''
 
-class ChatWork
+class CWHelper
 
   def self.tag_title title = nil
     title ? "[title]#{title}[/title]" : ''
@@ -35,7 +35,7 @@ class App < Sinatra::Base
       payload['commits'].map{|c|
         title = "[#{c['timestamp']}] #{c['committer']['name']} pushed."
         message = "#{c['message']}\n#{c['url']}"
-        ChatWork.tag_info message, title
+        CWHelper.tag_info message, title
       }.join "\n"
     else
       nil
