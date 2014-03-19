@@ -27,15 +27,15 @@ class CWHelper
       cry: ';(',
       oh: ':|',
       kiss: ';*',
-      heart: 'h',
-      flower: 'F',
-      cracker: 'cracker',
+      heart: '(h)',
+      flower: '(F)',
+      cracker: '(cracker)',
       cake: '^',
-      coffee: 'coffee',
-      beer: 'beer',
+      coffee: '(coffee)',
+      beer: '(beer)',
       sweat: '(^^;)'
     }
-    maps[icon] || icon
+    maps[icon] || icon.to_s
   end
 
 end
