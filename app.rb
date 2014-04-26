@@ -76,7 +76,7 @@ class App < Sinatra::Base
     message = data['commits'].map {|c|
       title = "[#{c['timestamp']}] #{c['author']} pushed."
       commit_url = "#{repo_url}commits/#{c['raw_node']}"
-      message = "#{c['message']}\n#{commit_url}"
+      message = "#{c['message']}#{commit_url}"
       CWHelper.tag_info message, title
     }.join "\n"
     puts "message: #{message}"
