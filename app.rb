@@ -71,7 +71,7 @@ class App < Sinatra::Base
   end
 
   post '/bitbucket/:room_id' do
-    data = JSON.parse request.body.string
+    data = JSON.parse request.body.read
     repo_url = data['canon_url'] + data['repository']['absolute_url']
     message = data['commits'].map {|c|
       title = "[#{c['timestamp']}] #{c['author']} pushed."
